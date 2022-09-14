@@ -25,7 +25,6 @@ router.post('/register', async (req, res) => {
     res.redirect('/register')
   }
   console.log(users);
-
 })
 
 router.get("/login", (req, res) => {

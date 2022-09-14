@@ -18,5 +18,3 @@ module.exports = {
   },
   getDb: () => dbConnection
 }
-
-//connect to db

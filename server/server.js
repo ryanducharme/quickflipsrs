@@ -1,4 +1,5 @@
 const express = require("express");
+const expressLayouts = require('express-ejs-layouts')
 const MongoClient = require("mongodb").MongoClient;
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv').config({ path: __dirname + '/.env' });
