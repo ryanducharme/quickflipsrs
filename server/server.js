@@ -3,16 +3,20 @@ const expressLayouts = require('express-ejs-layouts')
 const MongoClient = require("mongodb").MongoClient;
 const bcrypt = require('bcrypt');
 const dotenv = require('dotenv').config({ path: __dirname + '/.env' });
-const app = express();
+const path = require('path');
 const mongoose = require('mongoose');
+const { connectToDb, getDb } = require('./db')
+
+const app = express();
 const PORT = process.env.PORT || 3001;
 const connectionString = process.env.ATLAS_URI;
-const { connectToDb, getDb } = require('./db')
-const users = [];
+
 let db;
 
-app.set('view-engine', 'ejs');
 app.use(express.urlencoded({ extended: false }))
+app.set('view engine', 'ejs');
+app.use(expressLayouts);
+app.use(express.static(path.join(__dirname, './public')))
 
 //routes
 app.use('/', require('./routes/index'))
