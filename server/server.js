@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const dotenv = require('dotenv').config({ path: __dirname + '/.env' });
 const path = require('path');
 const mongoose = require('mongoose');
-const { connectToDb, getDb } = require('./db')
+const chart = require('chart.js');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -23,15 +23,11 @@ app.use('/', require('./routes/index'))
 app.use('/users', require('./routes/users'))
 
 
-connectToDb((err) => {
-  if (!err) {
-    console.log(`Connected to MongoDB Atlas`);
+mongoose.connect(connectionString, { useNewUrlParser: true })
+  .then(() => {
+    console.log('MongoDB Connected...');
     app.listen(PORT, () => {
       console.log(`Server listening on ${PORT}`);
     });
-
-    db = getDb();
-
-  }
-})
-
+  })
+  .catch(err => console.log(err))
