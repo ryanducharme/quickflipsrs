@@ -15,12 +15,15 @@ let db;
 
 app.use(express.urlencoded({ extended: false }))
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 app.use(expressLayouts);
 app.use(express.static(path.join(__dirname, './public')))
+
 
 //routes
 app.use('/', require('./routes/index'))
 app.use('/users', require('./routes/users'))
+app.use('/exchange', require('./routes/exchange'))
 
 
 mongoose.connect(connectionString, { useNewUrlParser: true })
