@@ -25,7 +25,9 @@
     "mongodb": "^4.9.1",
     "mongoose": "^6.6.0",
     "node-fetch": "^3.2.10",
+    "passport": "^0.6.0",
     "passport-google-oauth": "^2.0.0",
+    "passport-google-oidc": "^0.1.0",
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
