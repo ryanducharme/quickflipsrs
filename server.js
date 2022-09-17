@@ -10,6 +10,14 @@ const logger = require("morgan");
 const connectDB = require("./config/database");
 const mainRoutes = require("./routes/main");
 const postRoutes = require("./routes/posts");
+const exchangeRoutes = require("./controllers/exchange");
+const axios = require('axios').default;
+
+
+
+let itemMapping = [];
+let itemNames = [];
+const itemMappingURL = 'https://prices.runescape.wiki/api/v1/osrs/mapping'
 
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
@@ -56,6 +64,13 @@ app.use(flash());
 //Setup Routes For Which The Server Is Listening
 app.use("/", mainRoutes);
 app.use("/post", postRoutes);
+// app.use("/exchange", exchangeRoutes)
+
+axios.get(itemMappingURL)
+  .then(res => {
+    itemMapping = res;
+  })
+  .catch(err => console.log(err));
 
 //Server Running
 app.listen(process.env.PORT, () => {

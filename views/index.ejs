@@ -1,11 +1,19 @@
 <%- include('partials/header') -%>
 
-<main class="container">
-    <div class="row justify-content-around mt-5">
-        <a href="/login" class="col-3 btn btn-primary"> Login</a>
-        <a href="/signup" class="col-3 btn btn-primary"> Signup</a>
-    </div>
-</main>
-    
+    <main class="container p-5">
+        <h1>Welcome to Quickflips RS</h1>
+        <hr>
+        <p>This site is intended to help you flip items in Old School Runescape using the Grand Exchange.</p>
+        <p>Look at live price data for any item that is available on the Grand Exchange, add items to your Watchlist, or
+            track trades with our trade tracker.</p>
 
-<%- include('partials/footer') -%>
+
+        <div class="pt-5">
+            <p>Create an account to use the trade tracker and watchlist features.</p>
+            <a href="/login" class="btn btn-success">Login</a>
+            <a href="/signup" class="btn btn-primary">Create Account</a>
+        </div>
+    </main>
+
+
+    <%- include('partials/footer') -%>
