@@ -15,9 +15,10 @@ const axios = require('axios').default;
 
 
 
-let itemMapping = [];
-let itemNames = [];
-const itemMappingURL = 'https://prices.runescape.wiki/api/v1/osrs/mapping'
+// let itemMapping = [];
+// let itemNames = [];
+
+
 
 //Use .env file in config folder
 require("dotenv").config({ path: "./config/.env" });
@@ -66,11 +67,8 @@ app.use("/", mainRoutes);
 app.use("/post", postRoutes);
 // app.use("/exchange", exchangeRoutes)
 
-axios.get(itemMappingURL)
-  .then(res => {
-    itemMapping = res;
-  })
-  .catch(err => console.log(err));
+
+
 
 //Server Running
 app.listen(process.env.PORT, () => {

@@ -1,8 +1,30 @@
 <%- include('partials/header') -%>
 
   <div class="container p-5">
-    <h1>
-      <%= name.itemToFind %>
-    </h1>
+    <div class="d-flex justify-content-start align-items-center">
+      <h2>
+        <%= name %>
+      </h2>
+      <img src="<%= itemImageUrl %>" alt="">
+
+    </div>
+    <button class=" btn btn-primary">Add to Watchlist</button>
+    <table>
+      <tr>
+        <td>id:</td>
+        <td>
+          <%= id %>
+        </td>
+      </tr>
+      <tr>
+        <td>Limit:</td>
+        <td>
+          <% if(hasOwnProperty('limit')) {%>
+            <p>work</p>
+            <% }%>
+        </td>
+      </tr>
+    </table>
+    <h2>Price History</h2>
   </div>
   <%- include('partials/footer') -%>
