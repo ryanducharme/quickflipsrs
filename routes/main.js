@@ -16,7 +16,9 @@ router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
 
-router.post("/item", ensureGuest, exchangeController.getItem);
+router.post("/item", ensureGuest, exchangeController.postItem);
+router.get("/trade", ensureGuest, exchangeController.getTradeTracker);
+router.get("/watchlist", ensureGuest, exchangeController.getWatchlist);
 // router.get("/item", ensureGuest, exchangeController.getItem);
 
 module.exports = router;
