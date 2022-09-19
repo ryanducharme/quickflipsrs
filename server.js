@@ -12,7 +12,7 @@ const mainRoutes = require("./routes/main");
 const postRoutes = require("./routes/posts");
 const exchangeRoutes = require("./controllers/exchange");
 const axios = require('axios').default;
-
+const cookieSession = require('cookie-session');
 
 
 //Use .env file in config folder
@@ -41,18 +41,24 @@ app.use(logger("dev"));
 app.use(methodOverride("_method"));
 
 // Setup Sessions - stored in MongoDB
-app.use(
-  session({
-    secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
-  })
-);
+// app.use(
+//   session({
+//     secret: "keyboard cat",
+//     resave: false,
+//     saveUninitialized: false,
+//     store: new MongoStore({ mongooseConnection: mongoose.connection }),
+//   })
+// );
+
+app.use(cookieSession({
+  maxAge: 24 * 60 * 60 * 1000,
+  keys: [process.env.COOKIEKEY]
+}))
 
 // Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 //Use flash messages for errors, info, ect...
 app.use(flash());

@@ -4,11 +4,6 @@ const User = require("../models/User");
 require('../config/googleAuthPassport')
 
 
-// exports.googleLogin = () => {
-//   passport.authenticate('google', { scope: ['email', 'profile'] })
-// }
-
-
 exports.getLogin = (req, res) => {
   if (req.user) {
     return res.redirect("/profile");

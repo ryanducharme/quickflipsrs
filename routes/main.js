@@ -9,7 +9,11 @@ const passport = require("passport");
 require('../config/googleAuthPassport')
 
 //Main Routes - simplified for now
-router.get("/", homeController.getIndex);
+// router.get("/", homeController.getIndex);
+router.get('/', (req, res) => {
+  res.send(req.user)
+  console.log(req.user)
+})
 router.get("/profile", ensureAuth, postsController.getProfile);
 router.get("/feed", ensureAuth, postsController.getFeed);
 router.get("/login", authController.getLogin);
@@ -21,12 +25,12 @@ router.post("/signup", authController.postSignup);
 //Google Auth
 router.get('/auth/google',
   passport.authenticate('google', {
-    scope: ['profile']
+    scope: ['profile', 'email']
   })
 );
-router.get('/google/callback', (req, res) => {
-  res.sendStatus(200)
-});
+router.get('/google/callback', passport.authenticate('google', {
+  successRedirect: '/', failureRedirect: '/auth/failure'
+}));
 
 
 router.get('/auth/failure', (req, res) => {
