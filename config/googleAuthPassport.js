@@ -42,6 +42,7 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (id, done) {
   GoogleUser.findById(id).then((user) => {
-    done(null, id);
+    console.log(user)
+    done(null, user);
   })
 });
