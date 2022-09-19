@@ -16,7 +16,7 @@ router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
 
-router.post("/item", ensureGuest, exchangeController.postItem);
+router.post("/item", exchangeController.postItem);
 router.get("/trade", ensureAuth, exchangeController.getTradeTracker);
 router.get("/watchlist", ensureAuth, exchangeController.getWatchlist);
 // router.get("/item", ensureGuest, exchangeController.getItem);
