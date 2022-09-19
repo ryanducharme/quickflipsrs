@@ -41,19 +41,19 @@ app.use(logger("dev"));
 app.use(methodOverride("_method"));
 
 // Setup Sessions - stored in MongoDB
-// app.use(
-//   session({
-//     secret: "keyboard cat",
-//     resave: false,
-//     saveUninitialized: false,
-//     store: new MongoStore({ mongooseConnection: mongoose.connection }),
-//   })
-// );
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+  })
+);
 
-app.use(cookieSession({
-  maxAge: 24 * 60 * 60 * 1000,
-  keys: [process.env.COOKIEKEY]
-}))
+// app.use(cookieSession({
+//   maxAge: 24 * 60 * 60 * 1000,
+//   keys: [process.env.COOKIEKEY]
+//}))
 
 // Passport middleware
 app.use(passport.initialize());
