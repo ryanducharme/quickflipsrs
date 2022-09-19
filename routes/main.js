@@ -5,6 +5,8 @@ const homeController = require("../controllers/home");
 const postsController = require("../controllers/posts");
 const exchangeController = require("../controllers/exchange")
 const { ensureAuth, ensureGuest } = require("../middleware/auth");
+const passport = require("passport");
+require('../config/googleAuthPassport')
 
 //Main Routes - simplified for now
 router.get("/", homeController.getIndex);
@@ -16,9 +18,25 @@ router.get("/logout", authController.logout);
 router.get("/signup", authController.getSignup);
 router.post("/signup", authController.postSignup);
 
+//Google Auth
+router.get('/auth/google',
+  passport.authenticate('google', {
+    scope: ['profile']
+  })
+);
+router.get('/google/callback', (req, res) => {
+  res.sendStatus(200)
+});
+
+
+router.get('/auth/failure', (req, res) => {
+  res.send('Something went wrong...')
+})
+//exchange routes
 router.post("/item", exchangeController.postItem);
 router.get("/trade", ensureAuth, exchangeController.getTradeTracker);
 router.get("/watchlist", ensureAuth, exchangeController.getWatchlist);
 // router.get("/item", ensureGuest, exchangeController.getItem);
+
 
 module.exports = router;
