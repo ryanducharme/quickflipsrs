@@ -35,6 +35,7 @@ router.get('/auth/failure', (req, res) => {
 router.post("/item", exchangeController.postItem);
 router.get("/trade", ensureAuth, exchangeController.getTradeTracker);
 router.get("/watchlist", ensureAuth, exchangeController.getWatchlist);
+router.post("/watchlist", ensureAuth, exchangeController.postWatchlist);
 // router.get("/item", ensureGuest, exchangeController.getItem);
 
 

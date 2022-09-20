@@ -13,7 +13,7 @@ let fiveMinutePrices = {};
 let hourlyPrices = {};
 let dailyPrices = {};
 
-
+let data = [];
 //Item mapping
 axios.get(itemMappingURL)
   .then(res => {
@@ -74,9 +74,55 @@ module.exports = {
   },
   getWatchlist: (req, res) => {
     //find a users watchlist, if nothing was found create a new watchlist
-    let data = {};
+
     let name = 'hello'
-    console.log(req.user._id)
+
+    Watchlist.find({ userId: req.user._id })
+      .then((user) => {
+        // console.log(user[0].name)
+
+        if (user) {
+          // let watchListNames = [];
+          // user.forEach(user => {
+          //   watchListNames.push(user.name);
+          // })
+          // console.log(watchListNames);
+          res.render("watchlist.ejs", user);
+        }
+        // else {
+        //   new Watchlist({
+        //     userId: req.user._id,
+        //     name: 'My New Watchlist',
+        //     items: ['557']
+        //   }).save();
+        //}
+      })
+
+    Watchlist.findOne({ userId: req.user._id })
+      .then((user) => {
+        // console.log(user[0].name)
+
+        if (user) {
+          // let watchListNames = [];
+          // user.forEach(user => {
+          //   watchListNames.push(user.name);
+          // })
+          // console.log(watchListNames);
+          res.render("watchlist.ejs", user);
+        }
+        // else {
+        //   new Watchlist({
+        //     userId: req.user._id,
+        //     name: 'My New Watchlist',
+        //     items: ['557']
+        //   }).save();
+        //}
+      })
+
+  },
+
+  postWatchlist(req, res) {
+    let data = {};
     Watchlist.findOne({ userId: req.user._id })
       .then((user) => {
         // console.log(user)
@@ -93,8 +139,8 @@ module.exports = {
           }).save();
         }
       })
-
   },
+
   getTradeTracker: (req, res) => {
     res.render("tradeTracker.ejs");
   }
