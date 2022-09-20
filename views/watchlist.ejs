@@ -1,8 +1,32 @@
 <%- include('partials/header') -%>
 
   <div class="container p-5">
-    <h1>
-      Watchlist
-    </h1>
+    <div class="d-flex">
+      <h1>
+        Watchlist
+      </h1>
+
+    </div>
+    <hr>
+    <button class="btn btn-primary">New Watchlist</button>
+    <div class="row">
+
+      <div class="col">
+        <h4>
+          <%= name %>
+        </h4>
+      </div>
+      <div class="col"></div>
+      <div class="col"></div>
+      <div class="col"><button class="btn btn-danger">Remove</button></div>
+    </div>
+
   </div>
+
+
+
+
+
+
+
   <%- include('partials/footer') -%>

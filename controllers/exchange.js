@@ -1,5 +1,7 @@
 const flash = require("express-flash");
 const axios = require('axios');
+const mongoose = require('mongoose');
+const Watchlist = require("../models/Watchlist");
 
 const itemMappingURL = 'https://prices.runescape.wiki/api/v1/osrs/mapping';
 const fiveMinutePriceURL = 'https://prices.runescape.wiki/api/v1/osrs/5m';
@@ -71,7 +73,27 @@ module.exports = {
 
   },
   getWatchlist: (req, res) => {
-    res.render("watchlist.ejs");
+    //find a users watchlist, if nothing was found create a new watchlist
+    let data = {};
+    let name = 'hello'
+    console.log(req.user._id)
+    Watchlist.findOne({ userId: req.user._id })
+      .then((user) => {
+        // console.log(user)
+        if (user) {
+          console.log('watchlist found')
+          data = user;
+          console.log(data)
+          res.render("watchlist.ejs", data);
+        } else {
+          new Watchlist({
+            userId: req.user._id,
+            name: 'My New Watchlist',
+            items: ['557']
+          }).save();
+        }
+      })
+
   },
   getTradeTracker: (req, res) => {
     res.render("tradeTracker.ejs");
