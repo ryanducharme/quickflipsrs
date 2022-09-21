@@ -75,49 +75,40 @@ module.exports = {
   getWatchlist: (req, res) => {
     //find a users watchlist, if nothing was found create a new watchlist
 
-    let name = 'hello'
+    let data = {};
 
     Watchlist.find({ userId: req.user._id })
       .then((user) => {
         // console.log(user[0].name)
 
         if (user) {
-          // let watchListNames = [];
-          // user.forEach(user => {
-          //   watchListNames.push(user.name);
-          // })
-          // console.log(watchListNames);
-          res.render("watchlist.ejs", user);
+
+          data.lists = user;
+          res.render("watchlist.ejs", data);
         }
-        // else {
-        //   new Watchlist({
-        //     userId: req.user._id,
-        //     name: 'My New Watchlist',
-        //     items: ['557']
-        //   }).save();
-        //}
+
       })
 
-    Watchlist.findOne({ userId: req.user._id })
-      .then((user) => {
-        // console.log(user[0].name)
+    // Watchlist.findOne({ userId: req.user._id })
+    //   .then((user) => {
+    //     // console.log(user[0].name)
 
-        if (user) {
-          // let watchListNames = [];
-          // user.forEach(user => {
-          //   watchListNames.push(user.name);
-          // })
-          // console.log(watchListNames);
-          res.render("watchlist.ejs", user);
-        }
-        // else {
-        //   new Watchlist({
-        //     userId: req.user._id,
-        //     name: 'My New Watchlist',
-        //     items: ['557']
-        //   }).save();
-        //}
-      })
+    //     if (user) {
+    //       // let watchListNames = [];
+    //       // user.forEach(user => {
+    //       //   watchListNames.push(user.name);
+    //       // })
+    //       // console.log(watchListNames);
+    //       res.render("watchlist.ejs", user);
+    //     }
+    //     // else {
+    //     //   new Watchlist({
+    //     //     userId: req.user._id,
+    //     //     name: 'My New Watchlist',
+    //     //     items: ['557']
+    //     //   }).save();
+    //     //}
+    //   })
 
   },
 
