@@ -49,6 +49,24 @@ function getItemPriceDataById(id) {
 getItemPriceDataById(556);
 
 module.exports = {
+
+  getItem: (req, res) => {
+    let itemImageUrl = 'https://services.runescape.com/m=itemdb_oldschool/obj_big.gif?id='
+    let itemData = {};
+    itemMapping.forEach((item, index) => {
+
+      // if (item.name == req.body.itemToFind) {
+      //   console.log(`found match at ${index}`);
+      //   itemData = item;
+      //   itemData.itemImageUrl = itemImageUrl + itemData.id;
+      //   itemData.priceData = dailyPrices;
+      //   console.log(itemData);
+      // }
+    })
+    // res.render("item.ejs");
+    res.sendStatus(200);
+  },
+
   postItem: (req, res) => {
     //check req body and compare to item listing
     //if a name match is found render the item data
@@ -88,27 +106,6 @@ module.exports = {
         }
 
       })
-
-    // Watchlist.findOne({ userId: req.user._id })
-    //   .then((user) => {
-    //     // console.log(user[0].name)
-
-    //     if (user) {
-    //       // let watchListNames = [];
-    //       // user.forEach(user => {
-    //       //   watchListNames.push(user.name);
-    //       // })
-    //       // console.log(watchListNames);
-    //       res.render("watchlist.ejs", user);
-    //     }
-    //     // else {
-    //     //   new Watchlist({
-    //     //     userId: req.user._id,
-    //     //     name: 'My New Watchlist',
-    //     //     items: ['557']
-    //     //   }).save();
-    //     //}
-    //   })
 
   },
 
