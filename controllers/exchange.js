@@ -46,25 +46,40 @@ function getItemPriceDataById(id) {
   let keys = Object.keys(dailyPrices);
 }
 
-getItemPriceDataById(556);
+// getItemPriceDataById(556);
 
 module.exports = {
 
   getItem: (req, res) => {
     let itemImageUrl = 'https://services.runescape.com/m=itemdb_oldschool/obj_big.gif?id='
     let itemData = {};
-    itemMapping.forEach((item, index) => {
+    // console.log(req.params.name)
 
-      // if (item.name == req.body.itemToFind) {
-      //   console.log(`found match at ${index}`);
-      //   itemData = item;
-      //   itemData.itemImageUrl = itemImageUrl + itemData.id;
-      //   itemData.priceData = dailyPrices;
-      //   console.log(itemData);
-      // }
-    })
-    // res.render("item.ejs");
-    res.sendStatus(200);
+    //get watchlist data
+    let data = {}
+
+    Watchlist.find({ userId: req.user._id })
+      .then((user) => {
+        if (user) {
+          data.watchlists = user;
+          // console.log(data);
+        }
+        itemMapping.forEach((item, index) => {
+
+          if (item.name == req.params.name) {
+            console.log(`found match at ${index}`);
+            data.item = item;
+            data.itemImageUrl = itemImageUrl + item.id;
+            // itemData.priceData = dailyPrices;
+            console.log(data);
+          }
+        })
+        res.render("item.ejs", data);
+      })
+
+
+
+    // res.sendStatus(200);
   },
 
   postItem: (req, res) => {
@@ -77,15 +92,15 @@ module.exports = {
     itemMapping.forEach((item, index) => {
 
       if (item.name == req.body.itemToFind) {
-        console.log(`found match at ${index}`);
+        // console.log(`found match at ${index}`);
         itemData = item;
         itemData.itemImageUrl = itemImageUrl + itemData.id;
         itemData.priceData = dailyPrices;
-        console.log(itemData);
+        // console.log(itemData);
       }
     })
 
-    console.log(itemData);
+    // console.log(itemData);
 
     res.render("item.ejs", itemData);
 
@@ -97,7 +112,7 @@ module.exports = {
 
     Watchlist.find({ userId: req.user._id })
       .then((user) => {
-        // console.log(user[0].name)
+        // console.log(user)
 
         if (user) {
 
@@ -117,7 +132,7 @@ module.exports = {
         if (user) {
           console.log('watchlist found')
           data = user;
-          console.log(data)
+          // console.log(data)
           res.render("watchlist.ejs", data);
         } else {
           new Watchlist({
