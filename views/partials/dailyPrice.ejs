@@ -1,0 +1,34 @@
+<h4 class=" pt-5">24 Hour Price</h4>
+<div class="d-flex">
+
+  <table class="table">
+
+    <tr>
+      <td>Limit:</td>
+      <td>
+
+        <% if(item.hasOwnProperty('limit')) {%>
+          <%= item.limit %>
+            <% }%>
+      </td>
+    </tr>
+    <tr>
+      <td>Buy:</td>
+      <td>
+        <%= priceData.twentyFourHourPrice.avgHighPrice %>
+      </td>
+    </tr>
+    <tr>
+      <td>Sell</td>
+      <td>
+        <%= item.id %>
+      </td>
+    </tr>
+    <tr>
+      <td>Margin:</td>
+      <td>
+        <%= item.id %>
+      </td>
+    </tr>
+  </table>
+</div>

@@ -66,13 +66,16 @@ module.exports = {
         }
         itemMapping.forEach((item, index) => {
 
-          if (item.name == req.params.name) {
+          if (item.name.toLowerCase() == req.params.name.toLowerCase()) {
             data.itemImageUrl = itemImageUrl + item.id;
             data.item = item;
-            data.priceData = priceData;
 
-            // console.log(data);
-            console.log(dailyPrices.data[item.id]);
+            priceData.twentyFourHourPrice = dailyPrices.data[item.id];
+            priceData.oneHourPrice = hourlyPrices.data[item.id];
+            priceData.fiveMinutePrice = fiveMinutePrices.data[item.id];
+
+            data.priceData = priceData;
+            console.log(data);
             res.render("item.ejs", data);
           }
         })
@@ -81,29 +84,6 @@ module.exports = {
     // res.sendStatus(200);
   },
 
-  // postItem: (req, res) => {
-  //   //check req body and compare to item listing
-  //   //if a name match is found render the item data
-  //   //if not render an error
-
-  //   let itemImageUrl = 'https://services.runescape.com/m=itemdb_oldschool/obj_big.gif?id='
-  //   let itemData = {};
-  //   itemMapping.forEach((item, index) => {
-
-  //     if (item.name == req.body.itemToFind) {
-  //       // console.log(`found match at ${index}`);
-  //       itemData = item;
-  //       itemData.itemImageUrl = itemImageUrl + itemData.id;
-  //       itemData.priceData = dailyPrices;
-  //       // console.log(itemData);
-  //     }
-  //   })
-
-  //   // console.log(itemData);
-
-  //   res.render("item.ejs", itemData);
-
-  // },
   getWatchlist: (req, res) => {
     //find a users watchlist, if nothing was found create a new watchlist
     let data = {};
