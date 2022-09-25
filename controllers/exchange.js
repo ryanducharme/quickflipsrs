@@ -57,71 +57,64 @@ module.exports = {
 
     //get watchlist data
     let data = {}
-
+    let priceData = {};
     Watchlist.find({ userId: req.user._id })
       .then((user) => {
         if (user) {
           data.watchlists = user;
-          // console.log(data);
+
         }
         itemMapping.forEach((item, index) => {
 
           if (item.name == req.params.name) {
-            console.log(`found match at ${index}`);
-            data.item = item;
             data.itemImageUrl = itemImageUrl + item.id;
-            // itemData.priceData = dailyPrices;
-            console.log(data);
+            data.item = item;
+            data.priceData = priceData;
+
+            // console.log(data);
+            console.log(dailyPrices.data[item.id]);
+            res.render("item.ejs", data);
           }
         })
-        res.render("item.ejs", data);
+
       })
-
-
-
     // res.sendStatus(200);
   },
 
-  postItem: (req, res) => {
-    //check req body and compare to item listing
-    //if a name match is found render the item data
-    //if not render an error
+  // postItem: (req, res) => {
+  //   //check req body and compare to item listing
+  //   //if a name match is found render the item data
+  //   //if not render an error
 
-    let itemImageUrl = 'https://services.runescape.com/m=itemdb_oldschool/obj_big.gif?id='
-    let itemData = {};
-    itemMapping.forEach((item, index) => {
+  //   let itemImageUrl = 'https://services.runescape.com/m=itemdb_oldschool/obj_big.gif?id='
+  //   let itemData = {};
+  //   itemMapping.forEach((item, index) => {
 
-      if (item.name == req.body.itemToFind) {
-        // console.log(`found match at ${index}`);
-        itemData = item;
-        itemData.itemImageUrl = itemImageUrl + itemData.id;
-        itemData.priceData = dailyPrices;
-        // console.log(itemData);
-      }
-    })
+  //     if (item.name == req.body.itemToFind) {
+  //       // console.log(`found match at ${index}`);
+  //       itemData = item;
+  //       itemData.itemImageUrl = itemImageUrl + itemData.id;
+  //       itemData.priceData = dailyPrices;
+  //       // console.log(itemData);
+  //     }
+  //   })
 
-    // console.log(itemData);
+  //   // console.log(itemData);
 
-    res.render("item.ejs", itemData);
+  //   res.render("item.ejs", itemData);
 
-  },
+  // },
   getWatchlist: (req, res) => {
     //find a users watchlist, if nothing was found create a new watchlist
-
     let data = {};
-
     Watchlist.find({ userId: req.user._id })
       .then((user) => {
         // console.log(user)
-
         if (user) {
-
           data.lists = user;
           res.render("watchlist.ejs", data);
         }
-
       })
-
   },
 
   postWatchlist(req, res) {
