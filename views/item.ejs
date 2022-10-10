@@ -67,13 +67,13 @@
           <tr>
             <td>Sell</td>
             <td>
-              <%= item.id %>
+              <%= item.avgLowPrice %>
             </td>
           </tr>
           <tr>
             <td>Margin:</td>
             <td>
-              <%= item.id %>
+              <%= (item.avgHighPrice - item.avgLowPrice) %>
             </td>
           </tr>
         </table>

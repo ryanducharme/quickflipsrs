@@ -84,7 +84,6 @@ module.exports = {
     // res.sendStatus(200);
   },
 
-
   getWatchlist: (req, res) => {
     //find a users watchlist, if nothing was found create a new watchlist
     let data = {};

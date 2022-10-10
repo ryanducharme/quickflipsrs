@@ -8,26 +8,37 @@
       <td>
 
         <% if(item.hasOwnProperty('limit')) {%>
-          <%= item.limit %>
+          <%= (item.limit).toLocaleString('en-US') %>
             <% }%>
       </td>
     </tr>
     <tr>
       <td>Buy:</td>
       <td>
-        <%= priceData.twentyFourHourPrice.avgHighPrice %>
+        <%= (priceData.twentyFourHourPrice.avgLowPrice).toLocaleString('en-US') %>
       </td>
     </tr>
     <tr>
       <td>Sell</td>
       <td>
-        <%= item.id %>
+        <%= (priceData.twentyFourHourPrice.avgHighPrice).toLocaleString('en-US') %>
       </td>
     </tr>
     <tr>
       <td>Margin:</td>
       <td>
-        <%= item.id %>
+        <%= (priceData.twentyFourHourPrice.avgHighPrice -
+          priceData.twentyFourHourPrice.avgLowPrice).toLocaleString('en-US') %>
+      </td>
+    </tr>
+    <tr>
+      <td>Potential Profit:</td>
+      <td>
+        <% if(item.hasOwnProperty('limit')) {%>
+          <%= ((priceData.twentyFourHourPrice.avgHighPrice - priceData.twentyFourHourPrice.avgLowPrice) *
+            item.limit).toLocaleString('en-US') %>
+            <% }%>
+
       </td>
     </tr>
   </table>
