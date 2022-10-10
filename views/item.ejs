@@ -35,7 +35,8 @@
         <label class="form-check-label" for="inlineRadio1">1 Hour</label>
       </div>
       <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
+          checked>
         <label class="form-check-label" for="inlineRadio1">24 Hour</label>
       </div>
     </div>
@@ -44,81 +45,68 @@
     <% if(true) {%>
       <%- include('partials/dailyPrice') -%>
         <% } %>
-          <!-- <h4 class=" pt-5">24 Hour Price</h4>
-      <div class="d-flex">
 
-        <table class="table">
-
-          <tr>
-            <td>Limit:</td>
-            <td>
-
-              <% if(item.hasOwnProperty('limit')) {%>
-                <%= item.limit %>
-                  <% }%>
-            </td>
-          </tr>
-          <tr>
-            <td>Buy:</td>
-            <td>
-              <%= priceData.twentyFourHourPrice.avgHighPrice %>
-            </td>
-          </tr>
-          <tr>
-            <td>Sell</td>
-            <td>
-              <%= item.avgLowPrice %>
-            </td>
-          </tr>
-          <tr>
-            <td>Margin:</td>
-            <td>
-              <%= (item.avgHighPrice - item.avgLowPrice) %>
-            </td>
-          </tr>
-        </table>
-      </div> -->
-
-
-          <h4>Price History</h4>
+          <h4 class="pt-5">Price History</h4>
+          <p>Last 100 Days</p>
           <canvas id="myChart"></canvas>
           <script>
+            let itemID = <%= item.id %>;
 
-            const ctx = document.getElementById('myChart');
-            const myChart = new Chart(ctx, {
-              type: 'line',
-              data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                  label: '# of Votes',
-                  data: [12, 19, 3, 5, 2, 3],
-                  backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                  ],
-                  borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                  ],
-                  borderWidth: 1
-                }]
-              },
-              options: {
-                scales: {
-                  y: {
-                    beginAtZero: true
+            let priceHistory = fetch(`https://prices.runescape.wiki/api/v1/osrs/timeseries?timestep=24h&id=${itemID}`)
+              .then((res) => res.json())
+              .then((obj) => {
+
+                let timeStamps = obj.data.slice(0, 100).map(elem => {
+                  let unix_timestamp = elem.timestamp
+                  var date = new Date(unix_timestamp * 1000);
+                  return date.toLocaleDateString()
+                });
+
+                //prices
+                let avgHigh = obj.data.slice(0, 100).map(elem => elem.avgHighPrice);
+                let avgLow = obj.data.slice(0, 100).map(elem => elem.avgLowPrice);
+
+                //volume
+
+                console.log(avgHigh);
+
+                const ctx = document.getElementById('myChart');
+                const myChart = new Chart(ctx, {
+                  type: 'line',
+                  data: {
+                    labels: timeStamps,
+                    datasets: [{
+                      label: 'Avg High Price',
+                      data: avgHigh,
+                      backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                      ],
+                      borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                      ],
+                      borderWidth: 1
+                    }, {
+                      label: 'Avg Low Price',
+                      data: avgLow,
+                      backgroundColor: [
+                        'rgba(0, 99, 255, 0.2)',
+                      ],
+                      borderColor: [
+                        'rgba(0, 99, 255, 0.2)',
+                      ],
+                      borderWidth: 1
+                    }]
+                  },
+                  options: {
+                    scales: {
+                      y: {
+                        grace: '20%',
+                      }
+                    }
                   }
-                }
-              }
-            });
+                });
+              });
+
           </script>
   </div>
   <%- include('partials/footer') -%>

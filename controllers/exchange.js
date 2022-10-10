@@ -7,13 +7,15 @@ const itemMappingURL = 'https://prices.runescape.wiki/api/v1/osrs/mapping';
 const fiveMinutePriceURL = 'https://prices.runescape.wiki/api/v1/osrs/5m';
 const hourlyPriceURL = 'https://prices.runescape.wiki/api/v1/osrs/1h';
 const dailyPriceURL = 'https://prices.runescape.wiki/api/v1/osrs/24h';
+const priceHistoryURL = 'https://prices.runescape.wiki/api/v1/osrs/timeseries?timestep=24h&id=556';
 
 let itemMapping = {};
 let fiveMinutePrices = {};
 let hourlyPrices = {};
 let dailyPrices = {};
-
+let priceHistory = {};
 let data = [];
+
 //Item mapping
 axios.get(itemMappingURL)
   .then(res => {
@@ -39,6 +41,13 @@ axios.get(hourlyPriceURL)
 axios.get(hourlyPriceURL)
   .then(res => {
     dailyPrices = res.data;
+  })
+  .catch(err => console.log(err))
+
+//price history
+axios.get(priceHistoryURL)
+  .then(res => {
+    priceHistory = res.data;
   })
   .catch(err => console.log(err))
 
@@ -75,7 +84,9 @@ module.exports = {
             priceData.fiveMinutePrice = fiveMinutePrices.data[item.id];
 
             data.priceData = priceData;
+
             console.log(data);
+            data.priceHistory = priceHistory;
             res.render("item.ejs", data);
           }
         })

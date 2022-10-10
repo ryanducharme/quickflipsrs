@@ -37,8 +37,10 @@
         <% if(item.hasOwnProperty('limit')) {%>
           <%= ((priceData.twentyFourHourPrice.avgHighPrice - priceData.twentyFourHourPrice.avgLowPrice) *
             item.limit).toLocaleString('en-US') %>
-            <% }%>
-
+            <% } else { %>
+              <%= (priceData.twentyFourHourPrice.avgHighPrice -
+                priceData.twentyFourHourPrice.avgLowPrice).toLocaleString('en-US') + ' (No limit found)' %>
+                <% }%>
       </td>
     </tr>
   </table>
